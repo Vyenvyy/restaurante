@@ -6,15 +6,12 @@ import tkinter as tk
 ctk.set_appearance_mode ("light")
 
 janela = ctk.CTk()
-janela.configure(bg='#ADD8E6')
+janela.configure(bg='ffffff')
 janela.title("Restaurante do Ederson")
 janela.geometry("800x600")
 janela.resizable(False, False)
 
-# janelatkinter = tk.Canvas(janela, width=200, height=600, bg='white')
-# janelatkinter.pack(padx=20, pady=20)
-
-#imagem
+#imagem/função
 imagem = ctk.CTkImage(
 light_image=Image.open("fotocomida.png"),
 dark_image=Image.open("fotocomida.png"),
@@ -39,9 +36,6 @@ def quadrados(cor, width, height,posicaox, posicaoy):
     ).place(relx=posicaox, rely=posicaoy, anchor="center")
 
 quadrados("#c4273a", 300, 50, 0.785, 0.13)
-# quadrados("#c4273a", 360, 310, 0.5, 0.55)
-# quadrados("white", 350, 300, 0.5, 0.55)
-
 
 #função textos avulsos
 def textos(texto, fonte, tamanho, cor_texto, fundo_texto, posicaox, posicaoy):
@@ -69,7 +63,7 @@ caixanome = ctk.CTkEntry(
     border_width = 2,
     border_color = "#c4273a"
     )
-caixanome.place(relx=0.5, rely=0.46, anchor="center")
+caixanome.place(relx=0.78, rely=0.46, anchor="center")
 
 caixasenha = ctk.CTkEntry(
     janela, 
@@ -80,7 +74,7 @@ caixasenha = ctk.CTkEntry(
     border_width = 2,
     border_color = "#c4273a"
     )
-caixasenha.place(relx=0.5, rely=0.57, anchor="center")
+caixasenha.place(relx=0.78, rely=0.57, anchor="center")
 
 caixaconfirmarsenha = ctk.CTkEntry(
     janela, 
@@ -91,7 +85,60 @@ caixaconfirmarsenha = ctk.CTkEntry(
     border_width = 2,
     border_color = "#c4273a"
     )
-caixaconfirmarsenha.place(relx=0.5, rely=0.68, anchor="center")
+caixaconfirmarsenha.place(relx=0.78, rely=0.68, anchor="center")
+
+def armazenar():
+    global nome, senha, senha2, msg
+    nome = caixanome.get()
+    senha = caixasenha.get()
+    senha2 = caixaconfirmarsenha.get()
+
+    if nome==senha:
+        msg = ctk.CTkLabel(janela,
+            text = "Cadastro não realizado :(\nO nome deve ser destinto da senha.",
+            font=("courier new", 15, "bold"),
+            text_color = "red",
+            )
+        msg.place(relx=0.78, rely=0.85, anchor="center")
+        msg.after(2000 , lambda: msg.destroy())
+     
+       
+    elif senha!=senha2:
+       msg = ctk.CTkLabel(janela,
+            text = "Cadastro não realizado :(\nConfirmação de senha incorreta.",
+            font=("courier new", 15, "bold"),
+            text_color = "red"
+            )
+       msg.place(relx=0.78, rely=0.85, anchor="center")
+       msg.after(2000 , lambda: msg.destroy())
+
+    elif senha=="":
+       msg = ctk.CTkLabel(janela,
+            text = "Cadastro não realizado :(\nSenha é obrigatória",
+            font=("courier new", 15, "bold"),
+            text_color = "red"
+            )
+       msg.place(relx=0.78, rely=0.85, anchor="center")
+       msg.after(2000 , lambda: msg.destroy())
+
+    elif nome=="":
+       msg = ctk.CTkLabel(janela,
+            text = "Cadastro não realizado :(\nNome é obrigatório.",
+            font=("courier new", 15, "bold"),
+            text_color = "red"
+            )
+       msg.place(relx=0.78, rely=0.85, anchor="center")
+       msg.after(2000 , lambda: msg.destroy())
+
+    else:  
+    # elif nome!=senha:
+       msg = ctk.CTkLabel(janela,
+            text = "Cadastro realizado ฅ^•ﻌ•^ฅ",
+            font=("courier new", 15, "bold"),
+            text_color = "green"
+            )
+       msg.place(relx=0.78, rely=0.85, anchor="center")
+       msg.after(2000 , lambda: msg.destroy())
 
 confirmarbotao = ctk.CTkButton(
     janela,
@@ -101,7 +148,8 @@ confirmarbotao = ctk.CTkButton(
     height=30,
     text_color = "white",
     fg_color = "#c4273a",
-    hover_color = "#e34d5f"
-    ).place(relx=0.5, rely=0.76, anchor="center")
+    hover_color = "#e34d5f",
+    command = armazenar
+    ).place(relx=0.78, rely=0.76, anchor="center")
 
 janela.mainloop()
