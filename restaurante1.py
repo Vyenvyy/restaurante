@@ -10,14 +10,13 @@ janela.title("Restaurante do Ederson")
 janela.geometry("800x600")
 janela.resizable(False, False)
 
-
 #def pra fechar janela
 def fechar_janela():
     janela1.pack_forget()
     janela2.pack(fill="both", expand = True)
 
 
-#frame Janela 1 = Login
+#frame Janela 1 = Login -------------------------------------------------------------------------------------
 janela1 = ctk.CTkFrame(janela)
 janela1.pack(fill="both", expand = True)
 
@@ -31,7 +30,7 @@ def quadrados(cor, width, height,posicaox, posicaoy):
 
     ).place(relx=posicaox, rely=posicaoy, anchor="center")
 quadrados("white", 900, 700, 0.5, 0.5)
-quadrados("#c4273a", 300, 50, 0.785, 0.13)
+quadrados("#c4273a", 300, 50, 0.785, 0.17)
 
 #imagem/função
 imagem = ctk.CTkImage(
@@ -58,7 +57,7 @@ def textos(texto, fonte, tamanho, cor_texto, fundo_texto, posicaox, posicaoy):
         )
     bemvindo.place(relx= posicaox, rely= posicaoy, anchor="center")
 
-textos("Restaurante", "courier new", 25, "white", "#c4273a", 0.785, 0.13)
+textos("Restaurante", "courier new", 25, "white", "#c4273a", 0.785, 0.17)
 textos("Realize seu Cadastro", "courier new", 20, "black", "white",0.785, 0.3 )
 textos("Nome:", "courier new", 18, "#c4273a", "white",0.669, 0.41)
 textos("Senha:", "courier new", 18, "#c4273a", "white",0.678, 0.52)
@@ -178,8 +177,44 @@ confirmarbotao = ctk.CTkButton(
     command = armazenar
     ).place(relx=0.78, rely=0.76, anchor="center")
 
-#frame Janela 2 = Cardápio
+#frame Janela 2 = Cardápio -------------------------------------------------------------------------------------
 
 janela2 = ctk.CTkFrame(janela)
+
+#imagem/função
+imagem = ctk.CTkImage(
+light_image=Image.open("Cardápio.png"),
+dark_image=Image.open("Cardápio.png"),
+size=(800, 600)
+)
+
+def imagem_tela (imagem, posicaox, posicaoy):
+
+    image_label = ctk.CTkLabel(janela2, image=imagem, text="")
+    image_label.place(relx=posicaox, rely=posicaoy, anchor="center")
+
+imagem_tela(imagem, 0.5, 0.5)
+
+def confirmarbotao(eixox, eixoy):
+    confirmarbotao = ctk.CTkButton(
+        janela2,
+        text=("Visualizar"),
+        font=("courier new", 15),
+        width=60, 
+        height=30,
+        text_color = "white",
+        fg_color = "#c4273a",
+        hover_color = "#e34d5f",
+        ).place(relx=eixox, rely=eixoy, anchor="center")
+confirmarbotao(0.5, 0.52)
+confirmarbotao(0.685, 0.52)
+confirmarbotao(0.32, 0.52)
+
+confirmarbotao(0.5, 0.93)
+confirmarbotao(0.685, 0.93)
+confirmarbotao(0.32, 0.93)
+
+
+
 
 janela.mainloop()
