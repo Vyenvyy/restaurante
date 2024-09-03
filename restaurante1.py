@@ -188,33 +188,91 @@ dark_image=Image.open("Cardápio.png"),
 size=(800, 600)
 )
 
-def imagem_tela (imagem, posicaox, posicaoy):
+# def sim():
+#     foto1 = ctk.CTkImage(
+#     light_image=Image.open("Entradas.png"),
+#     dark_image=Image.open("Entradas.png"),
+#     size=(800, 600)
+#     )
+#     image_label = ctk.CTkLabel(janela2, image=foto1, text="")
+#     image_label.place(relx=0.5, rely=0.5, anchor="center")
 
-    image_label = ctk.CTkLabel(janela2, image=imagem, text="")
+def imagem_tela (janela, imagem, posicaox, posicaoy):
+
+    image_label = ctk.CTkLabel(janela, image=imagem, text="")
     image_label.place(relx=posicaox, rely=posicaoy, anchor="center")
 
-imagem_tela(imagem, 0.5, 0.5)
+imagem_tela(janela2, imagem, 0.5, 0.5)
 
-def confirmarbotao(eixox, eixoy):
-    confirmarbotao = ctk.CTkButton(
+#Opções do cardápio
+
+def entradas_pag():
+    for widget in janela2.winfo_children():
+        widget.destroy()
+    foto1 = ctk.CTkImage(
+    light_image=Image.open("Entradas.png"),
+    dark_image=Image.open("Entradas.png"),
+    size=(800, 600)
+    )
+    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
+    image_label.place(relx=0.5, rely=0.5, anchor="center")
+
+def principais_pag():
+    for widget in janela2.winfo_children():
+        widget.destroy()
+    foto1 = ctk.CTkImage(
+    light_image=Image.open("Principais.png"),
+    dark_image=Image.open("Principais.png"),
+    size=(800, 600)
+    )
+    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
+    image_label.place(relx=0.5, rely=0.5, anchor="center")
+
+def bebidas_pag():
+    for widget in janela2.winfo_children():
+        widget.destroy()
+    foto1 = ctk.CTkImage(
+    light_image=Image.open("Bebidas.png"),
+    dark_image=Image.open("Bebidas.png"),
+    size=(800, 600)
+    )
+    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
+    image_label.place(relx=0.5, rely=0.5, anchor="center")
+
+def confirmarbotao(eixox, eixoy, command):
+    confirmarbotao=ctk.CTkButton(
         janela2,
-        text=("Visualizar"),
+        text="Visualizar",
         font=("courier new", 15),
         width=60, 
         height=30,
-        text_color = "white",
-        fg_color = "#c4273a",
-        hover_color = "#e34d5f",
-        ).place(relx=eixox, rely=eixoy, anchor="center")
-confirmarbotao(0.5, 0.52)
-confirmarbotao(0.685, 0.52)
-confirmarbotao(0.32, 0.52)
+        text_color="white",
+        fg_color="#c4273a",
+        hover_color="#e34d5f",
+        command=command
+    ).place(relx=eixox, rely=eixoy, anchor="center")
 
-confirmarbotao(0.5, 0.93)
-confirmarbotao(0.685, 0.93)
-confirmarbotao(0.32, 0.93)
+confirmarbotao(0.32, 0.52, entradas_pag)
+
+confirmarbotao(0.5, 0.52, principais_pag)
+
+confirmarbotao(0.685, 0.52, bebidas_pag)
+
+# confirmarbotao(0.685, 0.52, fechar_janela_entradas)
+
+# confirmarbotao(0.5, 0.93, fechar_janela_alcoolicas)
+
+# confirmarbotao(0.685, 0.93, fechar_janela_sobremesas)
+
+# confirmarbotao(0.32, 0.93, fechar_janela_pratochefe)
+
+#opções do cardápio
+
+pratos = {
+    'Casquinhas de Pastel':10,
 
 
 
+}
 
 janela.mainloop()
