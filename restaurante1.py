@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from PIL import Image, ImageTk
 
-#Configuração Janela principal
+#Configuração Janela principal -------------------------------------------------------------------------------------
 ctk.set_appearance_mode ("light")
 
 janela = ctk.CTk()
@@ -20,7 +20,7 @@ def fechar_janela():
 janela1 = ctk.CTkFrame(janela)
 janela1.pack(fill="both", expand = True)
 
-#função quadrados
+#função quadrados -------------------------------------------------------------------------------------
 def quadrados(cor, width, height,posicaox, posicaoy):
     ctk.CTkFrame(
     master = janela1, 
@@ -32,7 +32,7 @@ def quadrados(cor, width, height,posicaox, posicaoy):
 quadrados("white", 900, 700, 0.5, 0.5)
 quadrados("#c4273a", 300, 50, 0.785, 0.17)
 
-#imagem/função
+#imagem/função -------------------------------------------------------------------------------------
 imagem = ctk.CTkImage(
 light_image=Image.open("fotocomida.png"),
 dark_image=Image.open("fotocomida.png"),
@@ -64,7 +64,7 @@ textos("Senha:", "courier new", 18, "#c4273a", "white",0.678, 0.52)
 textos("Confirmar Senha:", "courier new", 18, "#c4273a", "white",0.745, 0.63)
 textos("――――――――――――――――", "courier new", 25, "#c4273a", "white", 0.785, 0.34)
 
-#caixas
+#caixas -------------------------------------------------------------------------------------
 caixanome = ctk.CTkEntry(
     janela1, 
     placeholder_text="Digite aqui...", 
@@ -181,6 +181,33 @@ confirmarbotao = ctk.CTkButton(
 
 janela2 = ctk.CTkFrame(janela)
 
+def criar_pag_frame(imagem_nome, voltar_comando=None):
+    frame = ctk.CTkFrame(janela2)
+
+    foto = ctk.CTkImage(
+        light_image=Image.open(imagem_nome),
+        dark_image=Image.open(imagem_nome),
+        size=(800, 600)
+    )
+    image_label = ctk.CTkLabel(frame, image=foto, text="")
+    image_label.place(relx=0.5, rely=0.5, anchor="center")
+
+    if voltar_comando:
+        botao_voltar = ctk.CTkButton(
+            frame,
+            text="←",
+            font=("courier new", 15),
+            width=60,
+            height=30,
+            text_color="white",
+            fg_color="#c4273a",
+            hover_color="#e34d5f",
+            command=voltar_comando
+        )
+        botao_voltar.place(relx=0.5, rely=0.86, anchor="center")
+
+    return frame
+
 #imagem/função
 imagem = ctk.CTkImage(
 light_image=Image.open("Cardápio.png"),
@@ -195,73 +222,68 @@ def imagem_tela (janela, imagem, posicaox, posicaoy):
 
 imagem_tela(janela2, imagem, 0.5, 0.5)
 
-#Opções do cardápio
+#era pra chamar a tela principal -------------------------------------------------------------------------------------
+def telaprincipalcardapio():
+    for widget in janela2.winfo_children():
+        widget.destroy()
+
+    imagem = ctk.CTkImage(
+    light_image=Image.open("Cardápio.png"),
+    dark_image=Image.open("Cardápio.png"),
+    size=(800, 600)
+    )
+
+    def imagem_tela (janela, imagem, posicaox, posicaoy):
+
+        image_label = ctk.CTkLabel(janela, image=imagem, text="")
+        image_label.place(relx=posicaox, rely=posicaoy, anchor="center")
+
+    imagem_tela(janela2, imagem, 0.5, 0.5)
+
+    confirmarbotao(0.32, 0.52, entradas_pag)
+    confirmarbotao(0.5, 0.52, principais_pag)
+    confirmarbotao(0.685, 0.52, bebidas_pag)
+    confirmarbotao(0.32, 0.93, alcoolicas_pag)
+    confirmarbotao(0.5, 0.93, sobremesas_pag)
+    confirmarbotao(0.685, 0.93, pratochefe_pag)
+
+#opções -------------------------------------------------------------------------------------
 
 def entradas_pag():
     for widget in janela2.winfo_children():
         widget.destroy()
-    foto1 = ctk.CTkImage(
-    light_image=Image.open("Entradas.png"),
-    dark_image=Image.open("Entradas.png"),
-    size=(800, 600)
-    )
-    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
-    image_label.place(relx=0.5, rely=0.5, anchor="center")
+    frame = criar_pag_frame("Entradas.png", voltar_comando=telaprincipalcardapio)
+    frame.pack(fill="both", expand=True)
 
 def principais_pag():
     for widget in janela2.winfo_children():
         widget.destroy()
-    foto1 = ctk.CTkImage(
-    light_image=Image.open("Principais.png"),
-    dark_image=Image.open("Principais.png"),
-    size=(800, 600)
-    )
-    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
-    image_label.place(relx=0.5, rely=0.5, anchor="center")
+    frame = criar_pag_frame("Principais.png", voltar_comando=telaprincipalcardapio)
+    frame.pack(fill="both", expand=True)
 
 def bebidas_pag():
     for widget in janela2.winfo_children():
         widget.destroy()
-    foto1 = ctk.CTkImage(
-    light_image=Image.open("Bebidas.png"),
-    dark_image=Image.open("Bebidas.png"),
-    size=(800, 600)
-    )
-    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
-    image_label.place(relx=0.5, rely=0.5, anchor="center")
+    frame = criar_pag_frame("Bebidas.png", voltar_comando=telaprincipalcardapio)
+    frame.pack(fill="both", expand=True)
 
 def alcoolicas_pag():
     for widget in janela2.winfo_children():
         widget.destroy()
-    foto1 = ctk.CTkImage(
-    light_image=Image.open("Alcolicas.png"),
-    dark_image=Image.open("Alcolicas.png"),
-    size=(800, 600)
-    )
-    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
-    image_label.place(relx=0.5, rely=0.5, anchor="center")
+    frame = criar_pag_frame("Alcolicas.png", voltar_comando=telaprincipalcardapio)
+    frame.pack(fill="both", expand=True)
 
 def sobremesas_pag():
     for widget in janela2.winfo_children():
         widget.destroy()
-    foto1 = ctk.CTkImage(
-    light_image=Image.open("Sobremesas.png"),
-    dark_image=Image.open("Sobremesas.png"),
-    size=(800, 600)
-    )
-    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
-    image_label.place(relx=0.5, rely=0.5, anchor="center")
+    frame = criar_pag_frame("Sobremesas.png", voltar_comando=telaprincipalcardapio)
+    frame.pack(fill="both", expand=True)
 
 def pratochefe_pag():
     for widget in janela2.winfo_children():
         widget.destroy()
-    foto1 = ctk.CTkImage(
-    light_image=Image.open("Chefe.png"),
-    dark_image=Image.open("Chefe.png"),
-    size=(800, 600)
-    )
-    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
-    image_label.place(relx=0.5, rely=0.5, anchor="center")
+    frame = criar_pag_frame("Chefe.png", voltar_comando=telaprincipalcardapio)
+    frame.pack(fill="both", expand=True)
 
 def confirmarbotao(eixox, eixoy, command):
     confirmarbotao=ctk.CTkButton(
