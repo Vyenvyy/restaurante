@@ -188,15 +188,6 @@ dark_image=Image.open("Cardápio.png"),
 size=(800, 600)
 )
 
-# def sim():
-#     foto1 = ctk.CTkImage(
-#     light_image=Image.open("Entradas.png"),
-#     dark_image=Image.open("Entradas.png"),
-#     size=(800, 600)
-#     )
-#     image_label = ctk.CTkLabel(janela2, image=foto1, text="")
-#     image_label.place(relx=0.5, rely=0.5, anchor="center")
-
 def imagem_tela (janela, imagem, posicaox, posicaoy):
 
     image_label = ctk.CTkLabel(janela, image=imagem, text="")
@@ -239,6 +230,39 @@ def bebidas_pag():
     image_label = ctk.CTkLabel(janela2, image=foto1, text="")
     image_label.place(relx=0.5, rely=0.5, anchor="center")
 
+def alcoolicas_pag():
+    for widget in janela2.winfo_children():
+        widget.destroy()
+    foto1 = ctk.CTkImage(
+    light_image=Image.open("Alcolicas.png"),
+    dark_image=Image.open("Alcolicas.png"),
+    size=(800, 600)
+    )
+    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
+    image_label.place(relx=0.5, rely=0.5, anchor="center")
+
+def sobremesas_pag():
+    for widget in janela2.winfo_children():
+        widget.destroy()
+    foto1 = ctk.CTkImage(
+    light_image=Image.open("Sobremesas.png"),
+    dark_image=Image.open("Sobremesas.png"),
+    size=(800, 600)
+    )
+    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
+    image_label.place(relx=0.5, rely=0.5, anchor="center")
+
+def pratochefe_pag():
+    for widget in janela2.winfo_children():
+        widget.destroy()
+    foto1 = ctk.CTkImage(
+    light_image=Image.open("Chefe.png"),
+    dark_image=Image.open("Chefe.png"),
+    size=(800, 600)
+    )
+    image_label = ctk.CTkLabel(janela2, image=foto1, text="")
+    image_label.place(relx=0.5, rely=0.5, anchor="center")
+
 def confirmarbotao(eixox, eixoy, command):
     confirmarbotao=ctk.CTkButton(
         janela2,
@@ -253,26 +277,10 @@ def confirmarbotao(eixox, eixoy, command):
     ).place(relx=eixox, rely=eixoy, anchor="center")
 
 confirmarbotao(0.32, 0.52, entradas_pag)
-
 confirmarbotao(0.5, 0.52, principais_pag)
-
 confirmarbotao(0.685, 0.52, bebidas_pag)
-
-# confirmarbotao(0.685, 0.52, fechar_janela_entradas)
-
-# confirmarbotao(0.5, 0.93, fechar_janela_alcoolicas)
-
-# confirmarbotao(0.685, 0.93, fechar_janela_sobremesas)
-
-# confirmarbotao(0.32, 0.93, fechar_janela_pratochefe)
-
-#opções do cardápio
-
-pratos = {
-    'Casquinhas de Pastel':10,
-
-
-
-}
+confirmarbotao(0.32, 0.93, alcoolicas_pag)
+confirmarbotao(0.5, 0.93, sobremesas_pag)
+confirmarbotao(0.685, 0.93, pratochefe_pag)
 
 janela.mainloop()
