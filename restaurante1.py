@@ -181,6 +181,104 @@ confirmarbotao = ctk.CTkButton(
 
 janela2 = ctk.CTkFrame(janela)
 
+comidas = {
+    'Pasteis assados': 8.50,
+    'Tabua de frios': 25.00,
+    'Bolinhos de peixe': 12.00,
+    'Mini hamburgueres': 15.00,
+    'Salada pequena': 9.00,
+    'Porção de quibe': 10.00,
+    'Feijoada': 35.00,
+    'Lasanha': 22.00,
+    'Bife a parmegiana': 28.00,
+    'Espaguete ao molho': 18.00,
+    'Bobo de camarão': 30.00,
+    'Bife a cavalo': 24.00,
+    'Água': 4.00,
+    'Suco de acerola': 6.50,
+    'Fanta uva': 5.00,
+    'Suco de abacaxi com hortelã': 7.00,
+    'Água saborizada': 5.50,
+    'Suco de morango com leite': 7.50,
+    'Heineken': 10.00,
+    'Vinho': 45.00,
+    'Skol': 6.00,
+    'Vodka': 50.00,
+    'Cachaça': 35.00,
+    'Pinga': 32.00,
+    'Brownie': 9.00,
+    'Sorvete': 8.00,
+    'Torta de limão': 12.00,
+    'Gelatina': 4.00,
+    'Bala baiana': 2.00,
+    'Bolo de cenoura': 10.00,
+    'Trakinas': 5.50,
+    '7 Belo': 3.00,
+    'Pé de moleque': 6.00,
+    'Suspiro': 5.00,
+    'Maria mole': 4.50,
+    'Bolo gelado': 11.00
+}
+
+pedido = {}
+total = 0
+
+#Botões de adicionar e remover :D
+def atualizar_total():
+    global total
+    total_label.configure(text=f"Total: R${total:.2f}")
+
+def alterar_produto(produto, acao):
+    global total
+    if acao == "adicionar":
+        if produto in pedido:
+            pedido[produto] += 1
+        else:
+            pedido[produto] = 1
+        total += comidas[produto]
+    elif acao == "remover":
+        if produto in pedido and pedido[produto] > 0:
+            pedido[produto] -= 1
+            total -= comidas[produto]
+            if pedido[produto] == 0:
+                del pedido[produto]
+    atualizar_total()
+
+def criar_interface(eixox1, eixoy1, eixox2, eixoy2, intervalo_inicio, intervalo_fim):
+
+    global total_label
+    total_label = ctk.CTkLabel(
+        janela, text="Total: R$0.00",
+        font=("courier new", 20, "bold"),
+        width=60,
+        height=30,
+        text_color="Black",
+        fg_color="white",                               
+        )
+    total_label.place(relx=0.75, rely=0.11, anchor="center")
+    
+    produtos_intervalo = list(comidas.keys())[intervalo_inicio:intervalo_fim]
+
+    for produto in produtos_intervalo:
+        ctk.CTkButton(janela2, text="+1", 
+                        font=("courier new", 15),
+                        width=60, 
+                        height=30,
+                        text_color="white",
+                        fg_color="#c4273a",
+                        hover_color="#e34d5f",
+                        command=lambda p=produto: alterar_produto(p, "adicionar")).place(relx=eixox1, rely=eixoy1, anchor="center")
+        
+        ctk.CTkButton(janela2, text="-1", 
+                        font=("courier new", 15),
+                        width=60, 
+                        height=30,
+                        text_color="white",
+                        fg_color="#c4273a",
+                        hover_color="#e34d5f",
+                        command=lambda p=produto: alterar_produto(p, "remover")).place(relx=eixox2, rely=eixoy2, anchor="center")
+
+
 def criar_pag_frame(imagem_nome, voltar_comando=None):
     frame = ctk.CTkFrame(janela2)
 
@@ -204,7 +302,7 @@ def criar_pag_frame(imagem_nome, voltar_comando=None):
             hover_color="#e34d5f",
             command=voltar_comando
         )
-        botao_voltar.place(relx=0.5, rely=0.86, anchor="center")
+        botao_voltar.place(relx=0.07, rely=0.12, anchor="center")
 
     return frame
 
@@ -255,11 +353,25 @@ def entradas_pag():
     frame = criar_pag_frame("Entradas.png", voltar_comando=telaprincipalcardapio)
     frame.pack(fill="both", expand=True)
 
+    criar_interface(0.19, 0.46, 0.31, 0.46, 0, 1)
+    criar_interface(0.44, 0.46, 0.56, 0.46, 1, 2)
+    criar_interface(0.69, 0.46, 0.81, 0.46, 2, 3)
+    criar_interface(0.19, 0.81, 0.31, 0.81, 3, 4)
+    criar_interface(0.44, 0.81, 0.56, 0.81, 4, 5)
+    criar_interface(0.69, 0.81, 0.81, 0.81, 5, 6) 
+
 def principais_pag():
     for widget in janela2.winfo_children():
         widget.destroy()
     frame = criar_pag_frame("Principais.png", voltar_comando=telaprincipalcardapio)
     frame.pack(fill="both", expand=True)
+
+    criar_interface(0.19, 0.46, 0.31, 0.46, 6, 7)
+    criar_interface(0.44, 0.46, 0.56, 0.46, 7, 8)
+    criar_interface(0.69, 0.46, 0.81, 0.46, 8, 9)
+    criar_interface(0.19, 0.81, 0.31, 0.81, 9, 10)
+    criar_interface(0.44, 0.81, 0.56, 0.81, 10, 11)
+    criar_interface(0.69, 0.81, 0.81, 0.81, 11, 12) 
 
 def bebidas_pag():
     for widget in janela2.winfo_children():
@@ -267,11 +379,25 @@ def bebidas_pag():
     frame = criar_pag_frame("Bebidas.png", voltar_comando=telaprincipalcardapio)
     frame.pack(fill="both", expand=True)
 
+    criar_interface(0.19, 0.46, 0.31, 0.46, 12, 13)
+    criar_interface(0.44, 0.46, 0.56, 0.46, 13, 14)
+    criar_interface(0.69, 0.46, 0.81, 0.46, 14, 15)
+    criar_interface(0.19, 0.81, 0.31, 0.81, 15, 16)
+    criar_interface(0.44, 0.81, 0.56, 0.81, 16, 17)
+    criar_interface(0.69, 0.81, 0.81, 0.81, 17, 18) 
+
 def alcoolicas_pag():
     for widget in janela2.winfo_children():
         widget.destroy()
     frame = criar_pag_frame("Alcolicas.png", voltar_comando=telaprincipalcardapio)
     frame.pack(fill="both", expand=True)
+
+    criar_interface(0.19, 0.46, 0.31, 0.46, 18, 19)
+    criar_interface(0.44, 0.46, 0.56, 0.46, 19, 20)
+    criar_interface(0.69, 0.46, 0.81, 0.46, 20, 21)
+    criar_interface(0.19, 0.81, 0.31, 0.81, 21, 22)
+    criar_interface(0.44, 0.81, 0.56, 0.81, 22, 23)
+    criar_interface(0.69, 0.81, 0.81, 0.81, 23, 24)
 
 def sobremesas_pag():
     for widget in janela2.winfo_children():
@@ -279,11 +405,25 @@ def sobremesas_pag():
     frame = criar_pag_frame("Sobremesas.png", voltar_comando=telaprincipalcardapio)
     frame.pack(fill="both", expand=True)
 
+    criar_interface(0.19, 0.46, 0.31, 0.46, 24, 25)
+    criar_interface(0.44, 0.46, 0.56, 0.46, 25, 26)
+    criar_interface(0.69, 0.46, 0.81, 0.46, 26, 27)
+    criar_interface(0.19, 0.81, 0.31, 0.81, 27, 28)
+    criar_interface(0.44, 0.81, 0.56, 0.81, 28, 29)
+    criar_interface(0.69, 0.81, 0.81, 0.81, 29, 30)
+
 def pratochefe_pag():
     for widget in janela2.winfo_children():
         widget.destroy()
     frame = criar_pag_frame("Chefe.png", voltar_comando=telaprincipalcardapio)
     frame.pack(fill="both", expand=True)
+
+    criar_interface(0.19, 0.46, 0.31, 0.46, 30, 31)
+    criar_interface(0.44, 0.46, 0.56, 0.46, 31, 32)
+    criar_interface(0.69, 0.46, 0.81, 0.46, 32, 33)
+    criar_interface(0.19, 0.81, 0.31, 0.81, 33, 34)
+    criar_interface(0.44, 0.81, 0.56, 0.81, 34, 35)
+    criar_interface(0.69, 0.81, 0.81, 0.81, 35, 36)
 
 def confirmarbotao(eixox, eixoy, command):
     confirmarbotao=ctk.CTkButton(
